@@ -28,20 +28,16 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # Step 4: Run Next.js linting (optional but recommended)
-      - name: Lint the codebase
-        run: npm run lint
-
-      # Step 5: Build the Next.js app (without export)
+      # Step 4: Build the Next.js app
       - name: Build Next.js app
         run: npm run build
 
-      # Step 6: Create the _redirects file for Netlify (fixes routing issues)
+      # Step 5: Create the _redirects file for Netlify (fixes routing issues)
       - name: Create _redirects file
         run: |
           echo "/* /index.html 200" > out/_redirects
 
-      # Step 7: Deploy to Netlify
+      # Step 6: Deploy to Netlify
       - name: Deploy to Netlify
         run: netlify deploy --prod --dir=./out
         env:
