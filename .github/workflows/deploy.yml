@@ -1,0 +1,44 @@
+name: CI/CD for Next.js on Netlify
+
+# This workflow runs whenever code is pushed to the main branch or a pull request is opened
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js (version 18 is recommended for Next.js)
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Build the Next.js app
+      - name: Build Next.js app
+        run: npm run build
+
+      # Step 5: Export static site
+      - name: Export static site
+        run: npm run export
+
+      # Step 6: Deploy to Netlify
+      - name: Deploy to Netlify
+        run: netlify deploy --prod --dir=./out
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
