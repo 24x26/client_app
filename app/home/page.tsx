@@ -29,21 +29,20 @@ const userId=searchParams.get("userId")
         const logs = snapshot.val();
         if (logs) {
           logs.map((log:any) => {
-            console.log(log.value)
               setCurrentSpeed(bytesToSpeed(log.value))
           });
           //setSpeedData(prev => [...prev.slice(-20), ...formattedLogs]) // Keep last 20 data points
-        } else {
-          setSpeedData([]);
         }
       });
 
       const downloadInterval = setInterval(() => {
-        if(progress > 80){
-          setProgress(80)
-        }else{
-        setProgress(prev => prev+1)
+        setProgress(prev => {
+        if (prev >= 80) {
+          return 80; // Cap the progress at 80%
         }
+        return prev + 1;
+      }
+      )
       }, 200)
 
       return () => {
@@ -73,6 +72,7 @@ const userId=searchParams.get("userId")
       </header>
 
       <div className="max-w-md mx-auto text-center">
+        <h1 className='text-white text-4xl text-center mb-6'>welcome {username}</h1>
         <Cloud className="w-24 h-24 mx-auto mb-4" />
         <Button 
           onClick={startDownload} 

@@ -1,7 +1,7 @@
 import toast from "react-hot-toast"
 import axios from "axios"
 const baseUrl = axios.create({
-    baseURL:"http://localhost:3000/"
+    baseURL:"http://localhost:3000"
 })
 export const registerClient = async(data:any)=>{
     try {
@@ -49,7 +49,7 @@ export function bytesToSpeed(bytes:number) {
     // Step 1: Calculate bits from bytes
 
     // Step 2: Determine if it should be in Kbps or Mbps
-    if (bytes < 1000) {
+    if (bytes < 1020) {
         return `${bytes} bytes`;
     } else if (bytes > 1024 && bytes < 1024 * 1024) {
         // Convert to Kbps
