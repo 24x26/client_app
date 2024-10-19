@@ -28,8 +28,11 @@ const userId=searchParams.get("userId")
       const unsubscribe = onValue(speedLogsRef, (snapshot) => {
         const logs = snapshot.val();
         if (logs) {
-          logs.map((log:any) => {
+          logs.map((log:any,index:number) => {
               setCurrentSpeed(bytesToSpeed(log.value))
+              if(index == logs.length - 1){
+                setProgress(100)
+              }
           });
           //setSpeedData(prev => [...prev.slice(-20), ...formattedLogs]) // Keep last 20 data points
         }
